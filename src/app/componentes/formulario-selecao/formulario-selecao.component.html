@@ -3,26 +3,25 @@
     <h1 class="heading">Quiz App</h1>
     <div class="settings">
       <label for="num-questions">Numero de questões</label>
-      <select name="" id="num0questions">
+      <select name="num0questions" id="num0questions" [(ngModel)]="numQuestions">
         <option value="5">5</option>
         <option value="10">10</option>
       </select>
 
       <label for="difficulty">Selecione dificuldade</label>
-      <select name="" id="difficulty">
-        <option value="Easy">Facil</option>
-        <option value="Medium">Medio</option>
-        <option value="Hard">Dificil</option>
+      <select name="" id="difficulty" [(ngModel)]="difficulty">
+        <option value="easy">Facil</option>
+        <option value="medium">Medio</option>
+        <option value="hard">Dificil</option>
       </select>
 
       <label for="category">Selecione categoria</label>
-      <select name="" id="num0questions">
-        <option value="L">Bandeiras</option>
-        <option value="M">Inglês</option>
+      <select name="" id="category" [(ngModel)]="category">
+        <option *ngFor="let category of categoryList">{{ category }}</option>
       </select>
 
       <label for="time">Selecione um tempo</label>
-      <select name="" id="time">
+      <select name="" id="time" [(ngModel)]="time">
         <option value="10">10 segundos</option>
         <option value="15">15 segundos</option>
         <option value="20">20 segundos</option>
@@ -31,6 +30,6 @@
         <option value="60">60 segundos</option>
       </select>
     </div>
-    <button class="btn start">Começar Quiz</button>
-  </div>
- </div>
+    <button class="btn start" (click)="comecarQuiz()">Começar Quiz</button>
+  </div>
+</div>
