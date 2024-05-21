@@ -1,35 +1,34 @@
-<div class="container">
+<form method="post">
   <div class="start-screen hide">
-    <h1 class="heading">Quiz App</h1>
     <div class="settings">
-      <label for="num-questions">Numero de questões</label>
-      <select name="num0questions" id="num0questions" [(ngModel)]="numQuestions">
-        <option value="5">5</option>
-        <option value="10">10</option>
+      <label for="num-questions">Número de questões</label>
+      <select name="numQuestions" id="numQuestions" [(ngModel)]="numQuestions">
+        <option [value]="5">5</option>
+        <option [value]="10">10</option>
       </select>
 
-      <label for="difficulty">Selecione dificuldade</label>
-      <select name="" id="difficulty" [(ngModel)]="difficulty">
-        <option value="easy">Facil</option>
-        <option value="medium">Medio</option>
-        <option value="hard">Dificil</option>
+      <label for="difficulty">Selecione a dificuldade</label>
+      <select name="difficulty" id="difficulty" [(ngModel)]="difficulty">
+        <option value="easy">Fácil</option>
+        <option value="medium">Médio</option>
+        <option value="hard">Difícil</option>
       </select>
 
-      <label for="category">Selecione categoria</label>
-      <select name="" id="category" [(ngModel)]="category">
-        <option *ngFor="let category of categoryList">{{ category }}</option>
+      <label for="category">Selecione a categoria:</label>
+      <select id="category" name="category" [(ngModel)]="selectedCategory">
+        <option *ngFor="let category of categoryList" [value]="category.id">{{ category.category }} </option>
       </select>
 
-      <label for="time">Selecione um tempo</label>
-      <select name="" id="time" [(ngModel)]="time">
-        <option value="10">10 segundos</option>
-        <option value="15">15 segundos</option>
-        <option value="20">20 segundos</option>
-        <option value="25">25 segundos</option>
-        <option value="30">30 segundos</option>
-        <option value="60">60 segundos</option>
+      <label for="time">Selecione o tempo:</label>
+      <select id="time" name="time" [(ngModel)]="time">
+        <option [value]="30">30 segundos</option>
+        <option [value]="60">60 segundos</option>
+        <option [value]="900">90 segundos</option>
       </select>
     </div>
+
     <button class="btn start" (click)="comecarQuiz()">Começar Quiz</button>
   </div>
-</div>
+</form>
+
+

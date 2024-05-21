@@ -1,28 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
 
-.container {
-  position: absolute;
-
-  top: 50%;
-  left: 50%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  max-width: 400px;
-  background-color: #1f2847;
-  padding: 30px;
-  overflow: hidden;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0);
-}
-
-.heading{
-  text-align: center;
-  font-size: 40px;
-  color: #fff;
-  margin-bottom: 50px;
-}
 label{
   display: block;
   font-size: 12px;

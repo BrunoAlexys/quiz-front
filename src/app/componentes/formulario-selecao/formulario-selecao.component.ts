@@ -1,6 +1,9 @@
-import { PerguntasDTO } from './../../models/Perguntas_dtos';
 import { Component } from '@angular/core';
 import { FormularioSelecaoService } from '../../service/formulario-selecao.service';
+import { CategoryDTO } from '../../models/category_dtos';
+import { Router } from '@angular/router';
+import { QuizServiceService } from '../../service/quiz-service.service';
+import { QuizData } from '../../models/quiz-data';
 
 @Component({
   selector: 'app-formulario-selecao',
@@ -10,30 +13,41 @@ import { FormularioSelecaoService } from '../../service/formulario-selecao.servi
 
 
 export class FormularioSelecaoComponent {
-  numQuestions: any = "";
-  difficulty: string = '';
-  category: string = '';
-  categoryList: string[] = [];
+  numQuestions: string = "";
+  difficulty: string = "";
+  selectedCategory: string = "";
+  categoryList: CategoryDTO[] = [];
   time: any = "";
 
-  constructor(private formularioSelecaoService: FormularioSelecaoService) { }
+  constructor(
+    private formularioSelecaoService: FormularioSelecaoService,
+    private router: Router,
+    private quizService: QuizServiceService
+  ) { }
 
   ngOnInit(): void {
-    this.formularioSelecaoService.getCategory().subscribe((categoryList) => {
+    this.getCategorias();
+  }
+
+  getCategorias(): void {
+    this.formularioSelecaoService.getCategory().subscribe((categoryList: CategoryDTO[]) => {
       this.categoryList = categoryList;
+      this.categoryList.forEach(category => console.log(category));
+    }, error => {
+      console.error('Erro ao obter categorias:', error);
     });
   }
 
   comecarQuiz(): void {
-    let perguntasDTO: PerguntasDTO = {
-      amount: this.numQuestions,
-      category: this.category,
-      difficulty: this.difficulty
+    const quizData: QuizData = {
+      amount: parseInt(this.numQuestions),
+      difficulty: this.difficulty,
+      selectedCategory: this.selectedCategory,
+      time: this.time
     };
-
-    this.formularioSelecaoService.getPerguntas(perguntasDTO).subscribe((perguntas) => {
-      console.log(perguntas);
-    });
+    console.log("Qtd" + quizData.amount);
+    this.quizService.setQuizData(quizData);
+    this.router.navigate(['/perguntas']);
   }
 
 }

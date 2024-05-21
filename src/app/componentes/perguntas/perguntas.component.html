@@ -1,0 +1,26 @@
+<div class="quiz hide">
+  <div class="timer">
+    <div class="progress">
+      <div class="progress-bar"></div>
+      <span class="progress-text">{{ tempoRestante }}</span>
+    </div>
+  </div>
+  <div class="question-wrapper">
+    <div class="number">
+      Question <span class="current">{{ questaoAtual }}</span>
+      <span class="total">/{{ totalQuestao }}</span>
+    </div>
+  <div class="answer-wrapper">
+    <div class="question">{{ perguntas[questaoAtual - 1]?.question }}</div>
+    <div class="answer" *ngFor="let answer of perguntas[questaoAtual - 1]?.allAnswers"
+      (click)="selecionarResposta(answer)" [ngClass]="{'selected': respostaSelecionada === answer}">
+      <span class="text"> {{ answer }}</span>
+      <span class="checkbox">
+        <i class="fas fa-check"></i>
+      </span>
+    </div>
+  </div>
+  <button class="btn next" (click)="proximaQuestao()" *ngIf="!isUltimaQuestao()">Next</button>
+  <button class="btn submit" *ngIf="isUltimaQuestao()" (click)="submitQuiz()">Submit</button>
+</div>
+
