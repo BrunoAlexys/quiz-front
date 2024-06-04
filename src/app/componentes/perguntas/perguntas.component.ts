@@ -11,6 +11,7 @@ import { ResultadoDTO } from '../../models/resultado';
   styleUrl: './perguntas.component.css'
 })
 export class PerguntasComponent {
+
   totalQuestao: number = 0;
   questaoAtual: number = 1;
   respostaSelecionada: string = "";
@@ -21,7 +22,7 @@ export class PerguntasComponent {
   selectedCategory: string = "";
   perguntas: QuestionDTO[] = [];
   acertos: number = 0;
-
+  mostrarAviso: boolean = false;
 
   constructor(
     private quizService: QuizServiceService,
@@ -33,6 +34,8 @@ export class PerguntasComponent {
     this.loadData();
     this.iniciarContagemRegressiva();
   }
+
+
 
   loadData(): void {
     this.quizService.quizData$.subscribe((data) => {
@@ -50,11 +53,9 @@ export class PerguntasComponent {
   loadQuestions(): void {
     this.formularioService.getPerguntas(this.totalQuestao, this.selectedCategory, this.difficulty)
       .subscribe((response) => {
-        console.log(response);
         this.perguntas = response.map(pergunta => {
           let incorrectAnswers = pergunta.incorrectAnswers[0].replace(/[\[\]"]+/g, '').split(',');
           pergunta.allAnswers = this.shuffleArray([pergunta.correctAnswer, ...incorrectAnswers]);
-          console.log(pergunta.allAnswers);
           return pergunta;
         });
       });
@@ -69,9 +70,19 @@ export class PerguntasComponent {
   }
 
   iniciarContagemRegressiva(): void {
+    const progressBar = document.querySelector('.progress-bar') ?? null;
+
     this.timerId = setInterval(() => {
       if (this.tempoRestante > 0) {
         this.tempoRestante--;
+
+        if (progressBar) {
+          const progressBarHTMLElement = progressBar as HTMLElement;
+          const progressPercentage = (this.tempoRestante / this.tempoInicial) * 100;
+          progressBarHTMLElement.style.width = `${progressPercentage}%`;
+        } else {
+          console.error("Elemento da barra de progresso não encontrado!");
+        }
       } else {
         this.pararContagemRegressiva();
         this.proximaQuestao(true);
@@ -110,14 +121,12 @@ export class PerguntasComponent {
 
   selecionarResposta(resposta: string): void {
     this.respostaSelecionada = resposta;
-    console.log("Resposta selecionada: " + this.respostaSelecionada);
   }
 
   verificarRespostas(): void {
     if(this.respostaSelecionada.length > 0){
       if(this.respostaSelecionada === this.perguntas[this.questaoAtual - 1].correctAnswer){
         this.acertos++;
-        console.log("Você tem " + this.acertos + " acertos!");
       }
     }
   }

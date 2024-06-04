@@ -4,6 +4,7 @@ import { CategoryDTO } from '../../models/category_dtos';
 import { Router } from '@angular/router';
 import { QuizServiceService } from '../../service/quiz-service.service';
 import { QuizData } from '../../models/quiz-data';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-formulario-selecao',
@@ -18,15 +19,27 @@ export class FormularioSelecaoComponent {
   selectedCategory: string = "";
   categoryList: CategoryDTO[] = [];
   time: any = "";
+  formulario!: FormGroup;
 
   constructor(
     private formularioSelecaoService: FormularioSelecaoService,
     private router: Router,
-    private quizService: QuizServiceService
-  ) { }
+    private quizService: QuizServiceService,
+    private formBuilder: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.getCategorias();
+    this.validarFormulario();
+  }
+
+  validarFormulario(): void {
+    this.formulario = this.formBuilder.group({
+      numQuestions: ['', [Validators.required]],
+      difficulty: ['', [Validators.required]],
+      category: ['', [Validators.required]],
+      time: ['', [Validators.required]]
+    });
   }
 
   getCategorias(): void {
@@ -45,7 +58,7 @@ export class FormularioSelecaoComponent {
       selectedCategory: this.selectedCategory,
       time: this.time
     };
-    console.log("Qtd" + quizData.amount);
+
     this.quizService.setQuizData(quizData);
     this.router.navigate(['/perguntas']);
   }

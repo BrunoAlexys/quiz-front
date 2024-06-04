@@ -1,33 +1,33 @@
-<form method="post">
+<form method="post" [formGroup]="formulario">
   <div class="start-screen hide">
     <div class="settings">
       <label for="num-questions">Número de questões</label>
-      <select name="numQuestions" id="numQuestions" [(ngModel)]="numQuestions">
+      <select formControlName="numQuestions" id="numQuestions" [(ngModel)]="numQuestions">
         <option [value]="5">5</option>
         <option [value]="10">10</option>
       </select>
 
       <label for="difficulty">Selecione a dificuldade</label>
-      <select name="difficulty" id="difficulty" [(ngModel)]="difficulty">
+      <select formControlName="difficulty" id="difficulty" [(ngModel)]="difficulty">
         <option value="easy">Fácil</option>
         <option value="medium">Médio</option>
         <option value="hard">Difícil</option>
       </select>
 
       <label for="category">Selecione a categoria:</label>
-      <select id="category" name="category" [(ngModel)]="selectedCategory">
+      <select id="category" formControlName="category" [(ngModel)]="selectedCategory">
         <option *ngFor="let category of categoryList" [value]="category.id">{{ category.category }} </option>
       </select>
 
       <label for="time">Selecione o tempo:</label>
-      <select id="time" name="time" [(ngModel)]="time">
+      <select id="time" formControlName="time" [(ngModel)]="time">
         <option [value]="30">30 segundos</option>
         <option [value]="60">60 segundos</option>
         <option [value]="90">90 segundos</option>
       </select>
     </div>
 
-    <button class="btn start" (click)="comecarQuiz()">Começar Quiz</button>
+    <button class="btn start" [disabled]="!formulario.valid" (click)="comecarQuiz()">Começar Quiz</button>
   </div>
 </form>
 

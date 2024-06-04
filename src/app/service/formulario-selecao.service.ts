@@ -12,7 +12,8 @@ export class FormularioSelecaoService {
   constructor(private httpClient: HttpClient) { }
 
   getPerguntas(amount: number, category: string, difficulty: string): Observable<QuestionDTO[]> {
-    return this.httpClient.post<QuestionDTO[]>('http://localhost:8080/quiz/perguntas', {amount, category, difficulty});
+    const url = `http://localhost:8080/quiz/perguntas?amount=${amount}&category=${category}&difficulty=${difficulty}`;
+    return this.httpClient.get<QuestionDTO[]>(url);
   }
 
   getCategory(): Observable<CategoryDTO[]> {

@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/formulario-selecao', pathMatch: 'full'},
   { path: 'formulario-selecao', component: FormularioSelecaoComponent},
   { path: 'perguntas', component: PerguntasComponent},
-  {path: 'resultado', component: ResultadoComponent}
+  {path: 'resultado', component: ResultadoComponent},
 ];
 
 @NgModule({

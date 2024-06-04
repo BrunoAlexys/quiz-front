@@ -8,22 +8,29 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormularioSelecaoComponent } from './componentes/formulario-selecao/formulario-selecao.component';
 import { PerguntasComponent } from './componentes/perguntas/perguntas.component';
 import { ResultadoComponent } from './componentes/resultado/resultado.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+
 @NgModule({
   declarations: [
     AppComponent,
     FormularioSelecaoComponent,
     PerguntasComponent,
-    ResultadoComponent
+    ResultadoComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatToolbarModule,
+    MatProgressBarModule
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })
